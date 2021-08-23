@@ -17,6 +17,7 @@ use Piwik\Translation\Translator;
 abstract class PrivateDirectories implements Diagnostic
 {
     protected $privatePaths = [];
+
     protected $labelKey = 'Diagnostics_RequiredPrivateDirectories';
 
     /**

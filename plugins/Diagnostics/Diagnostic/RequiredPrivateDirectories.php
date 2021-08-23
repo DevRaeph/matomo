@@ -27,6 +27,7 @@ class RequiredPrivateDirectories extends PrivateDirectories
 
     protected function addError(DiagnosticResult &$result, bool $isConfigIniAccessible = false)
     {
+
         $pathIsAccessible = $this->translator->translate('Diagnostics_PrivateDirectoryIsAccessible');
         if ($isConfigIniAccessible) {
             $pathIsAccessible .= '<br/><br/>' . $this->translator->translate('Diagnostics_ConfigIniAccessible');
