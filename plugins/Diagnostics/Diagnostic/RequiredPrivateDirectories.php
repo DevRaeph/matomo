@@ -25,4 +25,13 @@ class RequiredPrivateDirectories extends PrivateDirectories
         ['.git/', '.git/config'],
     ];
 
+    protected function addError(DiagnosticResult &$result, bool $isConfigIniAccessible = false)
+    {
+        $pathIsAccessible = $this->translator->translate('Diagnostics_PrivateDirectoryIsAccessible');
+        if ($isConfigIniAccessible) {
+            $pathIsAccessible .= '<br/><br/>' . $this->translator->translate('Diagnostics_ConfigIniAccessible');
+        }
+        $pathIsAccessible .= '<br/><br/><a href="https://matomo.org/faq/troubleshooting/how-do-i-fix-the-error-private-directories-are-accessible/" target="_blank" rel="noopener noreferrer">' . $this->translator->translate('General_ReadThisToLearnMore', ['', '']) . '</a>';
+        $result->setLongErrorMessage($pathIsAccessible);
+    }
 }

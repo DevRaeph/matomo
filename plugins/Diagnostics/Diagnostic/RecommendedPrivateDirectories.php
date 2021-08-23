@@ -18,7 +18,14 @@ use Piwik\SettingsPiwik;
 class RecommendedPrivateDirectories extends PrivateDirectories
 {
     protected $privatePaths = [['tmp/', 'tmp/empty'], ['lang/en.json']];
-    protected $addError = false;
     protected $labelKey = 'Diagnostics_RecommendedPrivateDirectories';
+    protected function addError(DiagnosticResult &$result)
+    {
+        $result->addItem(new DiagnosticResultItem(DiagnosticResult::STATUS_INFORMATIONAL,
+            $this->translator->translate('Diagnostics_UrlsAccessibleViaBrowser', [
+                '<a target="_blank" rel="noopener noreferrer" href="https://matomo.org/faq/troubleshooting/how-do-i-fix-the-error-private-directories-are-accessible/">',
+                '</a>',
+            ])));
+    }
 }
 

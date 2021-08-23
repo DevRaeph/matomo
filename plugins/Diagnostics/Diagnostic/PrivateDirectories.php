@@ -17,13 +17,12 @@ use Piwik\Translation\Translator;
 abstract class PrivateDirectories implements Diagnostic
 {
     protected $privatePaths = [];
-    protected $addError = true;
     protected $labelKey = 'Diagnostics_RequiredPrivateDirectories';
 
     /**
      * @var Translator
      */
-    private $translator;
+    protected $translator;
 
     public function __construct(Translator $translator)
     {
@@ -84,14 +83,7 @@ abstract class PrivateDirectories implements Diagnostic
         }
 
         if ($atLeastOneIsAccessible) {
-            if ($this->addError) {
-                $pathIsAccessible = $this->translator->translate('Diagnostics_PrivateDirectoryIsAccessible');
-                if ($isConfigIniAccessible) {
-                    $pathIsAccessible .= '<br/><br/>' . $this->translator->translate('Diagnostics_ConfigIniAccessible');
-                }
-                $pathIsAccessible .= '<br/><br/><a href="https://matomo.org/faq/troubleshooting/how-do-i-fix-the-error-private-directories-are-accessible/" target="_blank" rel="noopener noreferrer">' . $this->translator->translate('General_ReadThisToLearnMore', ['', '']) . '</a>';
-                $result->setLongErrorMessage($pathIsAccessible);
-            }
+            $this->addError($result, $isConfigIniAccessible);
         } else {
             $result->addItem(new DiagnosticResultItem(DiagnosticResult::STATUS_OK, $this->translator->translate('Diagnostics_AllPrivateDirectoriesAreInaccessible')));
         }
@@ -157,4 +149,6 @@ abstract class PrivateDirectories implements Diagnostic
         }
         return false;
     }
+
+    protected abstract function addError(DiagnosticResult &$result);
 }
