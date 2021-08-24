@@ -110,8 +110,7 @@ class Controller extends \Piwik\Plugin\Controller
                 $messageNoAccess = Piwik::translate('Login_InvalidNonceOrHeadersOrReferrer', array('<a target="_blank" rel="noreferrer noopener" href="https://matomo.org/faq/how-to-install/#faq_98">', '</a>'));
             }
         }
-        $superUsers = Request::processRequest('UsersManager.getUsersHavingSuperUserAccess', [], []);
-        $view->superUserEmails = implode(',', array_column($superUsers, 'email'));
+        $view->contactEmail = implode(',', Piwik::getContactEmailAddresses());
         $view->loginModule = Piwik::getLoginPluginName();
         $view->AccessErrorString = $messageNoAccess;
         $view->addForm($form);
